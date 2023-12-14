@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34309.116
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContainerVervoerOpdracht_Core", "ContainerVervoerOpdracht\ContainerVervoerOpdracht_Core.csproj", "{E52823A1-0D6A-4C20-9B75-C743888AAA0E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTestContainerVervoer", "ConsoleTestContainerVervoer\ConsoleTestContainerVervoer.csproj", "{52F62E09-13BF-4600-8351-EA999A410113}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E52823A1-0D6A-4C20-9B75-C743888AAA0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E52823A1-0D6A-4C20-9B75-C743888AAA0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E52823A1-0D6A-4C20-9B75-C743888AAA0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E52823A1-0D6A-4C20-9B75-C743888AAA0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52F62E09-13BF-4600-8351-EA999A410113}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52F62E09-13BF-4600-8351-EA999A410113}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52F62E09-13BF-4600-8351-EA999A410113}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52F62E09-13BF-4600-8351-EA999A410113}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {971237B8-4C5D-4132-9ECD-C34C1EF55984}
+	EndGlobalSection
+EndGlobal
