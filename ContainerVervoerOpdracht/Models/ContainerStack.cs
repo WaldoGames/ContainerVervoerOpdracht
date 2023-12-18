@@ -71,8 +71,6 @@ namespace ContainerVervoerOpdracht_Core.Models
 			}
 			return s;
 		}
-
-
 		public bool TryAddContainerToStack(Container container)
 		{
 			if(container.Valuable && (ValuableAllowed == false || ContainsValuable==true))
@@ -98,7 +96,6 @@ namespace ContainerVervoerOpdracht_Core.Models
 			}
 			return true;
 		}
-
 		public string GetContainerStringToken()
 		{
 			string s = "";

@@ -172,11 +172,17 @@ namespace ContainerVervoerOpdracht_Core.Models
 			int failedValuable = 0;
 			int failedCooledAndValuable = 0;
 			int failedNormal = 0;
+			int tooHeavy = 0;
 			containers = containers.OrderByDescending(c => c.Cooled).ThenByDescending(c => c.Valuable).ToList();
 
 			foreach(var container in containers)
 			{
-				if (!TryAddContainerToShip(container))
+				if (container.FullWeigthInTons > 30)
+				{
+					tooHeavy++;
+				}
+
+				else if (!TryAddContainerToShip(container))
 				{
 					failedCount-=1;
 					if(container.Valuable == true && container.Cooled == true)
@@ -196,7 +202,7 @@ namespace ContainerVervoerOpdracht_Core.Models
 					}
 				}
 			}
-			return failedCount.ToString()+"/"+ containers.Count.ToString() +" containers placed missing containers \n valuable: " + failedValuable +"\n coolable: " + failedCooled + "\n valuable and cooled: " + failedCooledAndValuable + "\n normal: " + failedNormal;
+			return failedCount.ToString()+"/"+ containers.Count.ToString() +" containers placed missing containers \n valuable: " + failedValuable +"\n coolable: " + failedCooled + "\n valuable and cooled: " + failedCooledAndValuable + "\n normal: " + failedNormal+"\n Too heavy: "+ tooHeavy;
 		}
 		public bool CheckBoundsX(int x, int y)
 		{

@@ -22,4 +22,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ContainerVervoerOpdracht\ContainerVervoerOpdracht_Core.csproj" />
+  </ItemGroup>
+
 </Project>
