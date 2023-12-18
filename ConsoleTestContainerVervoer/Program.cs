@@ -6,29 +6,33 @@ Console.WriteLine("Hello, World!");
 
 List<Container> Containers = new List<Container>();
 
-for (int i = 0; i < 2;i++) {
+Random random = new Random();
+
+for (int i = 0; i < random.Next(200,300); i++) {
 
 	AddNewContainer(3000, false, false);
 }
-for (int i = 0; i < 2; i++)
+for (int i = 0; i < random.Next(500, 600); i++)
 {
 
-	AddNewContainer(2000, true, false);
+	AddNewContainer(1000, true, false);
 }
-for (int i = 0; i < 2; i++)
+for (int i = 0; i < random.Next(50, 60); i++)
 {
 
-	AddNewContainer(2000, false, true);
+	AddNewContainer(1000, false, true);
 }
-for (int i = 0; i < 2; i++)
+for (int i = 0; i < random.Next(50, 60); i++)
 {
 
-	AddNewContainer(2000, true, true);
+	AddNewContainer(1100, true, true);
 }
 
-Ship ship = new Ship(2, 3);
+Ship ship = new Ship(4, 8);
 
-ship.Fillship(Containers);
+
+
+Console.WriteLine(ship.Fillship(Containers));
 Console.WriteLine(ship.GetLink());
 
 void AddNewContainer(int weight, bool valueable, bool cooled)

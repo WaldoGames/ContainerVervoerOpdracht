@@ -12,6 +12,8 @@ namespace ContainerVervoerOpdracht_Core.Models
 
         public int ContentWeigth { get; set; }
         public int FullWeigth { get { return ContentWeigth + BaseWeigth; } }
+		public int FullWeigthInTons { get { return (ContentWeigth + BaseWeigth) / 1000; } }
+
 
 		public bool Valuable { get; set; }
         public bool Cooled { get; set; }

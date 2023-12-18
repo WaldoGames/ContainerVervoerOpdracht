@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ContainerVervoerOpdracht_Core.Models
 {
-	internal class ContainerStack
+	public class ContainerStack
 	{
 		public List<Container> stack;
 
@@ -53,21 +53,6 @@ namespace ContainerVervoerOpdracht_Core.Models
 			stack = new List<Container>();
 
         }
-		public string GetContainerStringToken()
-		{
-			string s = "";
-			for (int i = 0; i < stack.Count; i++)
-			{
-
-				s += stack[i].GetContainerStringToken();
-				if(i!= stack.Count - 1)
-				{
-					s += "-";
-				}
-
-			}
-			return s;
-		}
 		public string GetWeigths()
 		{
 			string s = "";
@@ -82,7 +67,7 @@ namespace ContainerVervoerOpdracht_Core.Models
 				{
 					s += "-";
 				}
-				s += item.FullWeigth;
+				s += item.FullWeigthInTons;
 			}
 			return s;
 		}
@@ -90,7 +75,7 @@ namespace ContainerVervoerOpdracht_Core.Models
 
 		public bool TryAddContainerToStack(Container container)
 		{
-			if(container.Valuable && (ValuableAllowed || ContainsValuable))
+			if(container.Valuable && (ValuableAllowed == false || ContainsValuable==true))
 			{
 				return false;
 			}
@@ -112,6 +97,20 @@ namespace ContainerVervoerOpdracht_Core.Models
 				stack.Insert(0, container);
 			}
 			return true;
+		}
+
+		public string GetContainerStringToken()
+		{
+			string s = "";
+			for (int i = 0; i < stack.Count; i++)
+			{
+				s += stack[i].GetContainerStringToken();
+				if (i != stack.Count - 1)
+				{
+					s += "-";
+				}
+			}
+			return s;
 		}
 	}
 }
