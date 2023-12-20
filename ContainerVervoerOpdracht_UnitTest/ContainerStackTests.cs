@@ -26,7 +26,7 @@ namespace ContainerVervoerOpdracht_UnitTest
 			Assert.False(stack.TryAddContainerToStack(new Container(1, false, false)));
 		}
 		[Fact]
-		public void TryAddContainerAdd3Cooled1ValuableAndCooled()
+		public void TryAddContainerAdd2Cooled1ValuableAndCooled()
 		{
 			ContainerStack stack = new ContainerStack(true, true);
 
@@ -36,6 +36,33 @@ namespace ContainerVervoerOpdracht_UnitTest
 
 			Assert.True(stack.stack[stack.stack.Count() - 1].Valuable == true);
 			Assert.True(stack.stack[0].Valuable == false);
+		}
+		[Fact]
+		public void TryAddContainerAdd2Valuable_returnsOneFalse()
+		{
+			ContainerStack stack = new ContainerStack(true, true);
+
+			Assert.True(stack.TryAddContainerToStack(new Container(2000, true, false)));
+			Assert.False(stack.TryAddContainerToStack(new Container(2000, true, false)));
+
+			Assert.True(stack.stack.Count() == 1);
+		}
+		[Fact]
+		public void TryAddContainerAdd1Valuable_returnsOneFalse_StackCantContainValuable()
+		{
+			ContainerStack stack = new ContainerStack(false, true);
+
+			Assert.False(stack.TryAddContainerToStack(new Container(2000, true, false)));
+
+
+		}
+		[Fact]
+		public void TryAddContainerAdd1Cooled_returnsOneFalse_StackCantContainCooled()
+		{
+			ContainerStack stack = new ContainerStack(false, false);
+
+			Assert.False(stack.TryAddContainerToStack(new Container(2000, false, true)));
+
 		}
 	}
 }

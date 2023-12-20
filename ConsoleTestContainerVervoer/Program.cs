@@ -10,22 +10,22 @@ Random random = new Random();
 
 for (int i = 0; i < random.Next(200,300); i++) {
 
-	AddNewContainer(3000, false, false);
+	AddNewContainer(random.Next(7000, 13000), false, false);
 }
-for (int i = 0; i < random.Next(500, 600); i++)
+for (int i = 0; i < random.Next(0, 1); i++)
 {
 
-	AddNewContainer(1000, true, false);
-}
-for (int i = 0; i < random.Next(50, 60); i++)
-{
-
-	AddNewContainer(1000, false, true);
+	AddNewContainer(random.Next(7000, 10000), true, false);
 }
 for (int i = 0; i < random.Next(50, 60); i++)
 {
 
-	AddNewContainer(1100, true, true);
+	AddNewContainer(random.Next(6000, 12000), false, true);
+}
+for (int i = 0; i < random.Next(50, 60); i++)
+{
+
+	AddNewContainer(random.Next(1000, 30000), true, true);
 }
 
 Ship ship = new Ship(4, 8);

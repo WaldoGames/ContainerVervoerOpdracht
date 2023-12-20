@@ -18,7 +18,14 @@ namespace ContainerVervoerOpdracht_Core.Models
 		List<ContainerStack> LeftAndCenterStacks;
 		List<ContainerStack> RightStacks;
 
-        public Ship(int width, int length)
+		int failedCount = 0;
+		int failedCooled = 0;
+		int failedValuable = 0;
+		int failedCooledAndValuable = 0;
+		int failedNormal = 0;
+		int failedTooHeavy = 0;
+
+		public Ship(int width, int length)
         {
 			this.width = width;
 			this.length = length;
@@ -155,6 +162,7 @@ namespace ContainerVervoerOpdracht_Core.Models
 			{
 				if (checkStacksRight(container)) return true;
 				if (checkStacksLeft(container)) return true;
+				
 			}
 			return false;
 		}
@@ -165,44 +173,48 @@ namespace ContainerVervoerOpdracht_Core.Models
 			Location = center;
 			return hasCenter;
 		}
-		public string Fillship(List<Container> containers)
+		public string Fillship(List<Container> containers, bool simpleReturnString = false)
 		{
-			int failedCount= containers.Count;
-			int failedCooled = 0;
-			int failedValuable = 0;
-			int failedCooledAndValuable = 0;
-			int failedNormal = 0;
-			int tooHeavy = 0;
 			containers = containers.OrderByDescending(c => c.Cooled).ThenByDescending(c => c.Valuable).ToList();
-
-			foreach(var container in containers)
+			failedCount = containers.Count;
+			foreach (var container in containers)
 			{
 				if (container.FullWeigthInTons > 30)
 				{
-					tooHeavy++;
+					failedTooHeavy++;
+					failedCount--;
 				}
-
+				
 				else if (!TryAddContainerToShip(container))
 				{
-					failedCount-=1;
-					if(container.Valuable == true && container.Cooled == true)
-					{
-						failedCooledAndValuable++;
-					}
-					else if(container.Valuable == true)
-					{
-						failedValuable++;
-					}
-					else if(container.Cooled == true)
-					{
-						failedCooled++;
-					}
-					else {
-						failedNormal++;
-					}
+					AddFailedContainerToCounter(container);
 				}
 			}
-			return failedCount.ToString()+"/"+ containers.Count.ToString() +" containers placed missing containers \n valuable: " + failedValuable +"\n coolable: " + failedCooled + "\n valuable and cooled: " + failedCooledAndValuable + "\n normal: " + failedNormal+"\n Too heavy: "+ tooHeavy;
+			if (simpleReturnString)
+			{
+				return failedCount.ToString() + "/" + containers.Count.ToString();
+			}
+			return failedCount.ToString()+"/"+ containers.Count.ToString() +" containers placed missing containers \n valuable: " + failedValuable +"\n coolable: " + failedCooled + "\n valuable and cooled: " + failedCooledAndValuable + "\n normal: " + failedNormal+"\n Too heavy: "+ failedTooHeavy;
+		}
+		public void AddFailedContainerToCounter(Container container)
+		{
+			failedCount -= 1;
+			if (container.Valuable == true && container.Cooled == true)
+			{
+				failedCooledAndValuable++;
+			}
+			else if (container.Valuable == true)
+			{
+				failedValuable++;
+			}
+			else if (container.Cooled == true)
+			{
+				failedCooled++;
+			}
+			else
+			{
+				failedNormal++;
+			}
 		}
 		public bool CheckBoundsX(int x, int y)
 		{
@@ -234,7 +246,7 @@ namespace ContainerVervoerOpdracht_Core.Models
 
 			if (y < length - 1)
 			{
-				if (ShipStacks[(x, y + 1)].stack.Count <= ShipStacks[(x, y)].stack.Count + 1)
+				if (ShipStacks[(x, y + 1)].stack.Count <= ShipStacks[(x, y)].stack.Count + 1 && ShipStacks[(x, y - 1)].ContainsValuable)
 				{
 					return false;
 				}
@@ -248,7 +260,7 @@ namespace ContainerVervoerOpdracht_Core.Models
 
 			if (y > 0)
 			{
-				if (ShipStacks[(x, y - 1)].stack.Count <= ShipStacks[(x, y)].stack.Count + 1)
+				if (ShipStacks[(x, y - 1)].stack.Count <= ShipStacks[(x, y)].stack.Count + 1 && ShipStacks[(x,y-1)].ContainsValuable)
 				{
 					return false;
 				}
@@ -320,6 +332,26 @@ namespace ContainerVervoerOpdracht_Core.Models
 			//3&stacks=141,141/111,111/111,111&weights=1-1-1,1-1-1/1-1-1,1-1-1/1-1-1,1-1-1
 		}
 
+		public bool TryAddContainerDirectlyToGrid_TEST_ONLY_FUNTION(Container c, int x, int y)
+		{
+			if(!CheckBoundsX(x, y) || !CheckBoundsFront(x, y)|| !CheckBoundsBack(x, y))
+			{
+				return false;
+			}
+
+			ShipStacks[(x,y)].TryAddContainerToStack(c);
+			return true;
+		}
+		public bool TryFillContainerStackDirectlyToGrid_TEST_ONLY_FUNTION(List<Container> c, int x, int y)
+		{
+			if (!CheckBoundsX(x, y) || !CheckBoundsFront(x, y) || !CheckBoundsBack(x, y))
+			{
+				return false;
+			}
+
+			ShipStacks[(x, y)].stack.AddRange(c);
+			return true;
+		}
 	}
 
 
