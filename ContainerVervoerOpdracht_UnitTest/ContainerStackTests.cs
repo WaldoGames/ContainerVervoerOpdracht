@@ -53,9 +53,8 @@ namespace ContainerVervoerOpdracht_UnitTest
 			ContainerStack stack = new ContainerStack(false, true);
 
 			Assert.False(stack.TryAddContainerToStack(new Container(2000, true, false)));
-
-
 		}
+
 		[Fact]
 		public void TryAddContainerAdd1Cooled_returnsOneFalse_StackCantContainCooled()
 		{

@@ -45,11 +45,11 @@ namespace ContainerVervoerOpdracht_Core.Models
 
 		public bool Center {  get; set; }
 
-        public ContainerStack(bool ValuableAllowed, bool CoolableStack, bool Center= false)
+        public ContainerStack(bool valuableAllowed, bool coolableStack, bool center= false)
 		{
-			this.ValuableAllowed = ValuableAllowed;
-			this.CoolableStack = CoolableStack;
-			this.Center = Center;
+			ValuableAllowed = valuableAllowed;
+			CoolableStack = coolableStack;
+			Center = center;
 			stack = new List<Container>();
 
         }

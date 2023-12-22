@@ -12,7 +12,7 @@ for (int i = 0; i < random.Next(200,300); i++) {
 
 	AddNewContainer(random.Next(7000, 13000), false, false);
 }
-for (int i = 0; i < random.Next(0, 1); i++)
+for (int i = 0; i < random.Next(10, 100); i++)
 {
 
 	AddNewContainer(random.Next(7000, 10000), true, false);
@@ -28,7 +28,7 @@ for (int i = 0; i < random.Next(50, 60); i++)
 	AddNewContainer(random.Next(1000, 30000), true, true);
 }
 
-Ship ship = new Ship(4, 8);
+Ship ship = new Ship(5, 5);
 
 
 

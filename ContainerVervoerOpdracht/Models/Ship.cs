@@ -110,7 +110,7 @@ namespace ContainerVervoerOpdracht_Core.Models
 			int LeftWeigth = LeftAndCenterStacks.Where(ls=>ls.Center == false).Select(ls => ls.StackWeigth).Sum();
 			int RightWeigth = RightStacks.Where(ls => ls.Center == false).Select(ls => ls.StackWeigth).Sum();
 
-			if(LeftWeigth< RightWeigth)
+			if(LeftWeigth<= RightWeigth)
 			{
 				return leftRight.left;
 			}
@@ -173,7 +173,7 @@ namespace ContainerVervoerOpdracht_Core.Models
 			Location = center;
 			return hasCenter;
 		}
-		public string Fillship(List<Container> containers, bool simpleReturnString = false)
+		public string Fillship(List<Container> containers)
 		{
 			containers = containers.OrderByDescending(c => c.Cooled).ThenByDescending(c => c.Valuable).ToList();
 			failedCount = containers.Count;
@@ -189,10 +189,6 @@ namespace ContainerVervoerOpdracht_Core.Models
 				{
 					AddFailedContainerToCounter(container);
 				}
-			}
-			if (simpleReturnString)
-			{
-				return failedCount.ToString() + "/" + containers.Count.ToString();
 			}
 			return failedCount.ToString()+"/"+ containers.Count.ToString() +" containers placed missing containers \n valuable: " + failedValuable +"\n coolable: " + failedCooled + "\n valuable and cooled: " + failedCooledAndValuable + "\n normal: " + failedNormal+"\n Too heavy: "+ failedTooHeavy;
 		}
@@ -330,27 +326,6 @@ namespace ContainerVervoerOpdracht_Core.Models
 			}
 			return Link;
 			//3&stacks=141,141/111,111/111,111&weights=1-1-1,1-1-1/1-1-1,1-1-1/1-1-1,1-1-1
-		}
-
-		public bool TryAddContainerDirectlyToGrid_TEST_ONLY_FUNTION(Container c, int x, int y)
-		{
-			if(!CheckBoundsX(x, y) || !CheckBoundsFront(x, y)|| !CheckBoundsBack(x, y))
-			{
-				return false;
-			}
-
-			ShipStacks[(x,y)].TryAddContainerToStack(c);
-			return true;
-		}
-		public bool TryFillContainerStackDirectlyToGrid_TEST_ONLY_FUNTION(List<Container> c, int x, int y)
-		{
-			if (!CheckBoundsX(x, y) || !CheckBoundsFront(x, y) || !CheckBoundsBack(x, y))
-			{
-				return false;
-			}
-
-			ShipStacks[(x, y)].stack.AddRange(c);
-			return true;
 		}
 	}
 
